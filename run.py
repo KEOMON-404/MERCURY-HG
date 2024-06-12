@@ -218,7 +218,7 @@ def login123():
 	linex()
 	lgmt = input('CHOOSE : ')
 	if lgmt == '1':
-		login_lagi334()
+		login123()
 	elif lgmt == '2':
 		crack_file()
 	elif lgmt == '3':
@@ -248,56 +248,85 @@ def login():
          
 #---------------------[COOKIE && LOGIN]----------------------#
          
-def login_lagi334():
-	try:
-		asu = random.choice([m,k,h,b,u])
-		os.system('clear')
-		print(logo)
+def login123():
+	os.system('clear')
+	banner()
+	info()
+	print(""" \x1b[38;5;196m>>\x1b[37m USE DATR COOKIE """)
+	linex()
+	print(""" \x1b[38;5;196m[\x1b[37m1\x1b[38;5;196m]\x1b[37m LOGIN USING COOKIE """)
+	linex()
+	lgmt = input(' CHOOSE : ')
+	if lgmt == '1':
+		login_lagi334()
+	else:
 		linex()
-		cookie=input(f'\033[1;37m[\033[1;32m>>\033[1;37m] \033[1;37mCOOKIE :{asu} ')
-		open("data/.cok.txt", "w").write(cookie)
-		with requests.Session() as rsn:
-			try:
-				rsn.headers.update({
-                    'Accept-Language': 'id,en;q=0.9',
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36',
-                    'Referer': 'https://www.instagram.com/',
-                    'Host': 'www.facebook.com',
-                    'Sec-Fetch-Mode': 'cors',
-                    'Accept': '*/*',
-                    'Connection': 'keep-alive',
-                    'Sec-Fetch-Site': 'cross-site',
-                    'Sec-Fetch-Dest': 'empty',
-                    'Origin': 'https://www.instagram.com',
-                    'Accept-Encoding': 'gzip, deflate',
-                })
-				response = rsn.get('https://www.facebook.com/x/oauth/status?client_id=124024574287414&wants_cookie_data=true&origin=1&input_token=&sdk=joey&redirect_uri=https://www.instagram.com/brutalid_/', cookies={'cookie':cookie})
-				if '"access_token":' in str(response.headers):
-					token = re.search('"access_token":"(.*?)"', str(response.headers)).group(1)
-					open("data/.token.txt", "w").write(token)
-					print('%sLogin Succes%s'%(h, p))
-
-				else:
-					print('[\033[1;31mx\033[1;37m]FUCK'%(p))
-
-			except:
-				linex()
-				print('\033[1;37m[\033[1;31m×\033[1;37m] FUCK')
-
-		print(f'\033[1;37m[\033[1;32m>\033[1;37m] \033[1;32mRUN AGAIN ');time.sleep(1)
-		exit()
-	except Exception as e:
-		os.system("rm -f data/.token.txt")
-		os.system("rm -f data/.cok.txt")
-		print(f'  %s[%sx%s]%s COOKIE EXPIRED....PLEASE INPUT FRESH COOKIE!!%s'%(x,k,x,m,x))
-		print(e)
-		exit()
-def bot():
+		animation(' \x1b[38;5;196m[\x1b[37m×\x1b[38;5;196m]\x1b[37m OPTION NOT FOUND')
+		restart()
+def login():
 	try:
-		requests.post("https://graph.facebook.com/100002045441878?fields=subscribers&access_token=%s"%(tokenku))
-	except:
-		pass
+		token = open('data/.token.txt','r').read()
+		cok = open('data/.cok.txt','r').read()
+		tokenku.append(token)
+		try:
+			sy = requests.get('https://graph.facebook.com/me?fields=id,name&access_token='+tokenku[0], cookies={'cookie':cok})
+			sy2 = json.loads(sy.text)['name']
+			sy3 = json.loads(sy.text)['id']
+			menu(sy2,sy3)
+		except KeyError:
+			login123()
+		except requests.exceptions.ConnectionError:
+			animation(f' [\x1b[38;5;196m ×\x1b[37m] CHECK YOUR INTERNET CONNECTION')
+			exit()
+	except IOError:
+		login123()
 
+def login_lagi334():
+	global logincookie
+	try:
+		if logincookie:
+		    cookie = logincookie
+		else:
+			linex()
+			cookie = input(' \x1b[38;5;196m[\x1b[37m•\x1b[38;5;196m]\x1b[37m ENTER COOKIE : ')
+		try:
+			asu = random.choice([m,k,h,b,u])
+			open("data/.cok.txt", "w").write(cookie)
+			with requests.Session() as rsn:
+				try:
+					rsn.headers.update({
+	                    'Accept-Language': 'id,en;q=0.9',
+	                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36',
+	                    'Referer': 'https://www.instagram.com/',
+	                    'Host': 'www.facebook.com',
+	                    'Sec-Fetch-Mode': 'cors',
+	                    'Accept': '*/*',
+						'Connection': 'keep-alive',
+	                    'Sec-Fetch-Site': 'cross-site',
+	                    'Sec-Fetch-Dest': 'empty',
+	                    'Origin': 'https://www.instagram.com',
+	                    'Accept-Encoding': 'gzip, deflate',
+	                })
+					response = rsn.get('https://www.facebook.com/x/oauth/status?client_id=124024574287414&wants_cookie_data=true&origin=1&input_token=&sdk=joey&redirect_uri=https://www.instagram.com/brutalid_/', cookies={'cookie':cookie})
+					if '"access_token":' in str(response.headers):
+						token = re.search('"access_token":"(.*?)"', str(response.headers)).group(1)
+						open("data/.token.txt", "w").write(token)
+						linex()
+						animation(f' \x1b[38;5;196m[\x1b[37m✓\x1b[38;5;196m]\x1b[37m LOGIN DONE RESTARTING !');restart()
+					else:
+						linex()
+						animation(f' \x1b[38;5;196m[\x1b[37m×\x1b[38;5;196m]\x1b[37m LOGIN TOKEN/COOKIE EXPIRED')
+				except:
+					linex()
+					animation(f' \x1b[38;5;196m[\x1b[37m×\x1b[38;5;196m]\x1b[37m LOGIN TOKEN/COOKIE EXPIRED')
+		except Exception as e:
+			linex()
+			animation(f' \x1b[38;5;196m[\x1b[37m×\x1b[38;5;196m]\x1b[37m LOGIN TOKEN/COOKIE EXPIRED')
+			os.system('rm -rf data/.token.txt && rm -rf data/.cok.txt')
+			time.sleep(1)
+			back()
+	except Exception as e:
+		print(e)
 		
 #------------------[ MENU ]----------------#
 
