@@ -218,7 +218,7 @@ def login123():
 	linex()
 	lgmt = input('CHOOSE : ')
 	if lgmt == '1':
-		login123()
+		login_123()
 	elif lgmt == '2':
 		crack_file()
 	elif lgmt == '3':
@@ -248,7 +248,7 @@ def login():
          
 #---------------------[COOKIE && LOGIN]----------------------#
          
-def login123():
+def login_123():
 	os.system('clear')
 	banner()
 	info()
